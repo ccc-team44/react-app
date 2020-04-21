@@ -1,24 +1,11 @@
 import React from 'react';
-import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { Card, Typography, Alert } from 'antd';
-import styles from './Welcome.less';
-import {
-  G2,
-  Chart,
-  Geom,
-  Axis,
-  Tooltip,
-  Coord,
-  Label,
-  Legend,
-  View,
-  Guide,
-  Shape,
-  Facet,
-  Util
-} from "bizcharts";
+import {PageHeaderWrapper} from '@ant-design/pro-layout';
+import {Alert, Card, Typography} from 'antd';
+import {Axis, Chart, Geom, Legend, Tooltip} from "bizcharts";
 import DataSet from "@antv/data-set";
 import axios from 'axios'
+import styles from './Welcome.less';
+
 const CodePreview: React.FC<{}> = ({ children }) => (
   <pre className={styles.pre}>
     <code>
@@ -28,7 +15,7 @@ const CodePreview: React.FC<{}> = ({ children }) => (
 );
 
 
-//todo refactor later
+// todo refactor later
 const SnippetChart = ({data}: any) => {
   const { DataView } = DataSet;
 
@@ -99,7 +86,7 @@ const SnippetChart = ({data}: any) => {
       name="population"
       label={{
         formatter(val) {
-          return val / 1000000 + "M";
+          return `${val / 1000000  }M`;
         }
       }}
     />
@@ -141,8 +128,8 @@ const SnippetChart = ({data}: any) => {
 export default (): React.ReactNode => {
   const [data, setData] = React.useState<any>(null);
   React.useEffect(() => {
-    axios.get('http://localhost:8001/snippets/1').then( res => {
-      setData(JSON.parse(res.data.data))
+    axios.get('http://localhost:8001/tweets').then( res => {
+      setData(res.data)
     })
   },[])
   return (
@@ -159,7 +146,7 @@ export default (): React.ReactNode => {
           }}
         />
         JSON data will be requested from
-        <CodePreview>localhost:8001/snippets/1 </CodePreview>
+        <CodePreview>localhost:8001/tweets </CodePreview>
 
       </Card>
 
