@@ -11,6 +11,11 @@ COPY ./package-lock.json /app/react-app/package-lock.json
 RUN cd /app/react-app && \
     npm install
 
+
+ARG SERVER_HTTP_ADDRESS
+
+ENV SERVER_HTTP_ADDRESS $SERVER_HTTP_ADDRESS
+
 RUN apk --no-cache del \
     g++ \
     make \
@@ -20,7 +25,7 @@ WORKDIR /app/react-app
 
 COPY . /app/react-app/
 
-RUN npm run build
+RUN export process.env.SERVER_HTTP_ADDRESS=npm run build
 
 # Stage 2
 
