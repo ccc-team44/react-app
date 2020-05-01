@@ -1,30 +1,19 @@
-FROM node:12-alpine as builder
+# Build Stage
 
-RUN apk --no-cache add \
-    g++ \
-    make \
-    python3
-
-COPY ./package.json /app/react-app/package.json
-COPY ./package-lock.json /app/react-app/package-lock.json
-
-RUN cd /app/react-app && \
-    npm install
-
-RUN apk --no-cache del \
-    g++ \
-    make \
-    python3
-
+FROM node:13.12.0-alpine as build
 WORKDIR /app/react-app
 
-COPY . /app/react-app/
+COPY . ./
 
+RUN npm install
 RUN npm run build
 
-# Stage 2
 
+
+# production environment
 FROM nginx:alpine
-
-COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
-COPY --from=builder /app/react-app/build /usr/share/nginx/html
+RUN apk add --no-cache jq
+COPY --from=build /app/react-app/dist /usr/share/nginx/html
+COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

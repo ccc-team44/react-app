@@ -14,6 +14,12 @@ or
 yarn
 ```
 
+
+[Docker hub repo link](https://hub.docker.com/r/xxdd13/ccc-react-app)
+
+##Api
+The react app will assume backend api server is running on same vm but at port 8001
+
 ## Provided Scripts
 
 Ant Design Pro provides some useful script to help you quick start and build with web project, code style check and test.
