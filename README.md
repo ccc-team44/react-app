@@ -17,10 +17,8 @@ yarn
 
 [Docker hub repo link](https://hub.docker.com/r/xxdd13/ccc-react-app)
 
-##Required ENV Variables
-```bash
-SERVER_HTTP_ADDRESS
-```
+##Api
+The react app will assume backend api server is running on same vm but at port 8001
 
 ## Provided Scripts
 

@@ -27,7 +27,7 @@
     "start:pre": "cross-env REACT_APP_ENV=pre umi dev",
     "start:test": "cross-env REACT_APP_ENV=test MOCK=none umi dev",
     "pretest": "node ./tests/beforeTest",
-    "run-docker": "docker build --tag ccc-react-app:1.0 . && docker run -it --rm -p 80:80 -e SERVER_HTTP_ADDRESS='http://127.0.0.1:8001' ccc-react-app:1.0 ",
+    "run-docker": "docker build --tag ccc-react-app:1.0 . && docker run -it --rm -p 80:80 ccc-react-app:1.0 ",
     "test": "umi test",
     "test:all": "node ./tests/run-tests.js",
     "test:component": "umi test ./src/components",

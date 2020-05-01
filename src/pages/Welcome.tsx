@@ -124,14 +124,14 @@ const SnippetChart = ({data}: any) => {
   </Chart>
 }
 
+// eslint-disable-next-line no-undef
+const serverAddress = `http://${window.location.host}:8001`;
 
 export default (): React.ReactNode => {
   const [data, setData] = React.useState<any>(null);
   React.useEffect(() => {
-    console.log(`${process.env.SERVER_HTTP_ADDRESS}/tweets`)
-    axios.get(`${process.env.SERVER_HTTP_ADDRESS}/tweets`).then( res => {
-      console.log(res?.data)
-      if(res.status === 200)
+    axios.get(`${serverAddress}/tweets`).then( res => {
+      if(res.status === 200 && typeof res.data === "object")
         setData(res?.data)
     }).catch(console.log)
   },[])
@@ -149,7 +149,7 @@ export default (): React.ReactNode => {
           }}
         />
         JSON data will be requested from
-        <CodePreview>{process.env.SERVER_HTTP_ADDRESS}/tweets </CodePreview>
+        <CodePreview>{serverAddress}/tweets </CodePreview>
 
       </Card>
 
