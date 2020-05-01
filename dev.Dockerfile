@@ -15,6 +15,7 @@ COPY ./package-lock.json /app/react-app/package-lock.json
 #     g++ \
 #     make \
 #     python3
+ENV SERVER_HTTP_ADDRESS http://localhost:8001
 
 WORKDIR /app/react-app
 

@@ -1,35 +1,28 @@
-FROM node:12-alpine as builder
+# Build Stage
 
-RUN apk --no-cache add \
-    g++ \
-    make \
-    python3
+FROM node:13.12.0-alpine as build
+WORKDIR /app/react-app
+ENV PATH /app/react-app/node_modules/.bin:$PATH
 
-COPY ./package.json /app/react-app/package.json
-COPY ./package-lock.json /app/react-app/package-lock.json
+COPY ./package.json ./
+COPY ./package-lock.json ./
 
 RUN cd /app/react-app && \
     npm install
 
-
+COPY . ./
+# react app doesn't know where server is, we need to tell it
 ARG SERVER_HTTP_ADDRESS
-
 ENV SERVER_HTTP_ADDRESS $SERVER_HTTP_ADDRESS
 
-RUN apk --no-cache del \
-    g++ \
-    make \
-    python3
+RUN npm run build
 
-WORKDIR /app/react-app
 
-COPY . /app/react-app/
 
-RUN export process.env.SERVER_HTTP_ADDRESS=npm run build
-
-# Stage 2
-
+# production environment
 FROM nginx:alpine
-
-COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
-COPY --from=builder /app/react-app/build /usr/share/nginx/html
+FROM nginx:stable-alpine
+COPY --from=build /app/react-app/build /usr/share/nginx/html
+COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
