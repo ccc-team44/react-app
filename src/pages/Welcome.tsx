@@ -128,9 +128,12 @@ const SnippetChart = ({data}: any) => {
 export default (): React.ReactNode => {
   const [data, setData] = React.useState<any>(null);
   React.useEffect(() => {
+    console.log(`${process.env.SERVER_HTTP_ADDRESS}/tweets`)
     axios.get(`${process.env.SERVER_HTTP_ADDRESS}/tweets`).then( res => {
-      setData(res.data)
-    })
+      console.log(res?.data)
+      if(res.status === 200)
+        setData(res?.data)
+    }).catch(console.log)
   },[])
   return (
     <PageHeaderWrapper>
