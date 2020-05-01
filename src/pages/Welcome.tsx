@@ -128,7 +128,7 @@ const SnippetChart = ({data}: any) => {
 export default (): React.ReactNode => {
   const [data, setData] = React.useState<any>(null);
   React.useEffect(() => {
-    axios.get('http://localhost:8001/tweets').then( res => {
+    axios.get(`${process.env.SERVER_HTTP_ADDRESS}/tweets`).then( res => {
       setData(res.data)
     })
   },[])
@@ -146,7 +146,7 @@ export default (): React.ReactNode => {
           }}
         />
         JSON data will be requested from
-        <CodePreview>localhost:8001/tweets </CodePreview>
+        <CodePreview>{process.env.SERVER_HTTP_ADDRESS}/tweets </CodePreview>
 
       </Card>
 
