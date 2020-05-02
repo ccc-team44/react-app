@@ -125,14 +125,14 @@ const SnippetChart = ({data}: any) => {
 }
 
 // eslint-disable-next-line no-undef
-const serverAddress = `http://${window.location.host}:8001`;
+const serverAddress = process.env.NODE_ENV === 'production' ? `http://${window.location.host}:8001` : 'http://localhost:8001';
 
 export default (): React.ReactNode => {
   const [data, setData] = React.useState<any>(null);
   React.useEffect(() => {
     axios.get(`${serverAddress}/tweets`).then( res => {
-      if(res.status === 200 && typeof res.data === "object")
-        setData(res?.data)
+      if(res.status === 200 && typeof res?.data?.data === "object")
+        setData(res.data.data)
     }).catch(console.log)
   },[])
   return (
