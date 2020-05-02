@@ -5,6 +5,7 @@ import {Axis, Chart, Geom, Legend, Tooltip} from "bizcharts";
 import DataSet from "@antv/data-set";
 import axios from 'axios'
 import styles from './Welcome.less';
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 const CodePreview: React.FC<{}> = ({ children }) => (
   <pre className={styles.pre}>
@@ -136,27 +137,29 @@ export default (): React.ReactNode => {
     }).catch(console.log)
   },[])
   return (
-    <PageHeaderWrapper>
-      <Card>
-        <Alert
-          message="Make sure django server is running"
-          type="success"
-          showIcon
-          banner
-          style={{
-            margin: -12,
-            marginBottom: 24,
-          }}
-        />
-        JSON data will be requested from
-        <CodePreview>{serverAddress}/tweets </CodePreview>
+    <ErrorBoundary>
+      <PageHeaderWrapper>
+        <Card>
+          <Alert
+            message="Make sure django server is running"
+            type="success"
+            showIcon
+            banner
+            style={{
+              margin: -12,
+              marginBottom: 24,
+            }}
+          />
+          JSON data will be requested from
+          <CodePreview>{serverAddress}/tweets </CodePreview>
 
-      </Card>
+        </Card>
 
-      <Card>
-        {data && <SnippetChart data={data}/>}
-      </Card>
+        <Card>
+          {data && <SnippetChart data={data}/>}
+        </Card>
 
-    </PageHeaderWrapper>
+      </PageHeaderWrapper>
+    </ErrorBoundary>
   );
 }
