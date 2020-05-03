@@ -9,35 +9,13 @@ import * as React from 'react';
 import ReactDOM from 'react-dom';
 
 function joinData(geodata: any) {
-  const ncovDataObj: any = {
-    "1": {
-      confirmedCount: 1000*Math.random()
-    },
-    "2": {
-      confirmedCount: 1000 * Math.random()
-    },
-    "3": {
-      confirmedCount: 1000 * Math.random()
-    },
-    "4": {
-      confirmedCount: 1000 * Math.random()
-    },
-    "5": {
-      confirmedCount: 1000 * Math.random()
-    },
-    "6": {
-      confirmedCount: 1000 * Math.random()
-    },
-    "7": {
-      confirmedCount: 1000 * Math.random()
-    },
-  };
-
   const geoObj: any = {};
   geodata.features.forEach((feature: any) => {
-    const { STATE_CODE } = feature.properties;
-    geoObj[STATE_CODE] = feature.properties;
-    const ncov = ncovDataObj[STATE_CODE] || {};
+    const { loc_pid } = feature.properties;
+    geoObj[loc_pid] = feature.properties;
+    const ncov = {
+      confirmedCount: 100 * Math.random()
+    };
     feature.properties = {
       ...feature.properties,
       ...ncov,
@@ -47,12 +25,12 @@ function joinData(geodata: any) {
   return geodata;
 }
 
-const CovidMapComponent = React.memo(function Map() {
+const StateMapComponent = React.memo(function Map() {
   const [data, setData] = React.useState();
   React.useEffect(() => {
     const fetchData = async () => {
       const geoData = await  fetch(
-        'https://raw.githubusercontent.com/tonywr71/GeoJson-Data/master/australian-states.json',
+        'https://raw.githubusercontent.com/tonywr71/GeoJson-Data/master/suburb-2-vic.geojson',
       ).then((d) => d.json());
       setData(joinData(geoData));
     };
@@ -138,4 +116,4 @@ const CovidMapComponent = React.memo(function Map() {
     </>
   );
 });
-export default CovidMapComponent
+export default StateMapComponent
