@@ -8,58 +8,42 @@ import {
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 
-function joinData(geodata: any, ncovData: any) {
-  const ncovDataObj: any = {};
-  ncovData.forEach((item: any) => {
-    const {
-      countryName,
-      countryEnglishName,
-      currentConfirmedCount,
-      confirmedCount,
-      suspectedCount,
-      curedCount,
-      deadCount,
-    } = item;
-    if (countryName === '中国') {
-      if (!ncovDataObj[countryName]) {
-        ncovDataObj[countryName] = {
-          countryName: 0,
-          countryEnglishName,
-          currentConfirmedCount: 0,
-          confirmedCount: 0,
-          suspectedCount: 0,
-          curedCount: 0,
-          deadCount: 0,
-        };
-      } else {
-        ncovDataObj[countryName].currentConfirmedCount += currentConfirmedCount;
-        ncovDataObj[countryName].confirmedCount += confirmedCount;
-        ncovDataObj[countryName].suspectedCount += suspectedCount;
-        ncovDataObj[countryName].curedCount += curedCount;
-        ncovDataObj[countryName].deadCount += deadCount;
-      }
-    } else {
-      ncovDataObj[countryName] = {
-        countryName,
-        countryEnglishName,
-        currentConfirmedCount,
-        confirmedCount,
-        suspectedCount,
-        curedCount,
-        deadCount,
-      };
-    }
-  });
+function joinData(geodata: any) {
+  const ncovDataObj: any = {
+    "1": {
+      confirmedCount: 1000*Math.random()
+    },
+    "2": {
+      confirmedCount: 1000 * Math.random()
+    },
+    "3": {
+      confirmedCount: 1000 * Math.random()
+    },
+    "4": {
+      confirmedCount: 1000 * Math.random()
+    },
+    "5": {
+      confirmedCount: 1000 * Math.random()
+    },
+    "6": {
+      confirmedCount: 1000 * Math.random()
+    },
+    "7": {
+      confirmedCount: 1000 * Math.random()
+    },
+  };
+
   const geoObj: any = {};
   geodata.features.forEach((feature: any) => {
-    const { name } = feature.properties;
-    geoObj[name] = feature.properties;
-    const ncov = ncovDataObj[name] || {};
+    const { STATE_CODE } = feature.properties;
+    geoObj[STATE_CODE] = feature.properties;
+    const ncov = ncovDataObj[STATE_CODE] || {};
     feature.properties = {
       ...feature.properties,
       ...ncov,
     };
   });
+  console.log(geodata)
   return geodata;
 }
 
@@ -67,16 +51,10 @@ const CovidMapComponent = React.memo(function Map() {
   const [data, setData] = React.useState();
   React.useEffect(() => {
     const fetchData = async () => {
-      const [geoData, ncovData] = await Promise.all([
-        fetch(
-          'https://gw.alipayobjects.com/os/bmw-prod/e62a2f3b-ea99-4c98-9314-01d7c886263d.json',
-        ).then((d) => d.json()),
-        // https://lab.isaaclin.cn/nCoV/api/area?latest=1
-        fetch(
-          'https://gw.alipayobjects.com/os/bmw-prod/55a7dd2e-3fb4-4442-8899-900bb03ee67a.json',
-        ).then((d) => d.json()),
-      ]);
-      setData(joinData(geoData, ncovData.results));
+      const geoData = await  fetch(
+        'https://raw.githubusercontent.com/tonywr71/GeoJson-Data/master/australian-states.json',
+      ).then((d) => d.json());
+      setData(joinData(geoData));
     };
     fetchData();
   }, []);
@@ -84,7 +62,7 @@ const CovidMapComponent = React.memo(function Map() {
     <>
       <MapboxScene
         map={{
-          center: [110.19382669582967, 50.258134],
+          center: [144.9631, -37.8136],
           pitch: 0,
           style: 'blank',
           zoom: 1,
