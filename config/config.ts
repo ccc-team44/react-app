@@ -78,6 +78,12 @@ export default defineConfig({
       component: './HeatMap',
     },
     {
+      name: 'Intensity Map',
+      icon: 'smile',
+      path: '/intensity-map',
+      component: './IntensityMap',
+    },
+    {
       component: './404',
     },
   ],
