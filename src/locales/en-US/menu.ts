@@ -51,4 +51,5 @@ export default {
   'menu.editor.koni': 'Koni Editor',
   'menu.Heat Map': 'Heat Map',
   'menu.Intensity Map': 'Intensity Map',
+  'menu.Covid Map': 'Covid Map',
 };

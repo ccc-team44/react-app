@@ -84,6 +84,12 @@ export default defineConfig({
       component: './IntensityMap',
     },
     {
+      name: 'Covid Map',
+      icon: 'smile',
+      path: '/covidmap',
+      component: './Covid Map',
+    },
+    {
       component: './404',
     },
   ],
