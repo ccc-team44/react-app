@@ -68,12 +68,8 @@ const CovidMapComponent = React.memo(function Map() {
           zoom: 1,
         }}
         style={{
-          position: 'absolute',
-          background:'#fff', // 地图背景色
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
+          width: '100%',
+          height: '80vh',
         }}
       >
         {data && [
@@ -99,14 +95,7 @@ const CovidMapComponent = React.memo(function Map() {
             }}
             color={{
               field: 'confirmedCount', // 填充颜色
-              values: [
-                '#732200',
-                '#CC3D00',
-                '#FF6619',
-                '#FF9466',
-                '#FFC1A6',
-                '#FCE2D7',
-              ].reverse()
+              values: ['#f7fcf0','#e0f3db','#ccebc5','#a8ddb5','#7bccc4','#4eb3d3','#2b8cbe','#08589e'].reverse()
             }}
             shape={{
               values: 'fill',
