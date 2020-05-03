@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Spin } from 'antd';
 import styles from './index.less';
 import HeatMapComponent from "@/pages/HeatMap/components/HeatMapComponent";
-import {mockData} from "./mock";
+import {getMockData} from "./mock";
 import {HeatMapItem} from "@/pages/HeatMap/data";
 
 const mapStyles = {
@@ -20,7 +20,7 @@ export default () => {
   const [data, setData] = useState<HeatMapItem[]>([]);
   useEffect(() => {
     const timer = setTimeout(()=> {
-      setData(mockData)
+      setData(getMockData())
       setLoading(false)
     },2000)
 
@@ -28,7 +28,7 @@ export default () => {
   }, []);
   return (
     <PageHeaderWrapper content="It's heating up！" className={styles.main}>
-      <div style={{ paddingTop: 100, textAlign: 'center' }}>
+      <div style={{ paddingTop: 20, textAlign: 'center' }}>
         {loading ? <Spin spinning={loading} size="large" /> : <HeatMapComponent data={data} mapStyles={mapStyles} />}
       </div>
     </PageHeaderWrapper>

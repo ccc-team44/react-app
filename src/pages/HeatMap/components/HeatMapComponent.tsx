@@ -10,7 +10,7 @@ const Map = ReactMapboxGl({
 const mapStyle = {
   flex: 1,
   height: '60vh',
-  minHeight: 500
+  minHeight: 600
 };
 
 export interface Props {
@@ -54,15 +54,12 @@ const layerPaint = {
     stops: [[0, 1], [5, 50]]
   }
 };
+const center = [144.9631, -37.8136] as [number, number];
 
 export default ({data, mapStyles:styles} : {
   data: HeatMapItem[]
   mapStyles: any
 }) => {
-
-  const center = [144.9631, -37.8136] as [number, number];
-
-
 
   return <>
     <Map
