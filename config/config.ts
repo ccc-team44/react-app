@@ -73,7 +73,7 @@ export default defineConfig({
     },
     {
       name: 'Heat Map',
-      icon: 'smile',
+      icon: 'fire',
       path: '/heat-map',
       component: './HeatMap',
     },
