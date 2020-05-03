@@ -57,10 +57,12 @@
     "axios": "^0.19.2",
     "bizcharts": "^3.5.8",
     "classnames": "^2.2.6",
+    "mapbox-gl": "^1.10.0",
     "omit.js": "^1.0.2",
     "qs": "^6.9.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-mapbox-gl": "^4.8.3",
     "umi": "^3.1.0",
     "umi-request": "^1.0.8",
     "use-merge-value": "^1.0.1"

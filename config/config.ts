@@ -3,7 +3,6 @@ import { defineConfig } from 'umi';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 const { REACT_APP_ENV } = process.env;
-
 export default defineConfig({
   hash: true,
   antd: {},
@@ -13,7 +12,7 @@ export default defineConfig({
   layout: {
     name: 'comp90024a2',
     locale: true,
-    logo: '/pro_icon.svg'
+    logo: '/pro_icon.svg',
   },
   locale: {
     // default zh-CN
@@ -42,14 +41,12 @@ export default defineConfig({
     //     },
     //   ],
     // },
-
     {
       path: '/welcome',
       name: 'welcome',
       icon: 'smile',
       component: './Welcome',
-    },
-    // {
+    }, // {
     //   path: '/admin',
     //   name: 'admin',
     //   icon: 'crown',
@@ -73,6 +70,12 @@ export default defineConfig({
     {
       path: '/',
       redirect: '/welcome',
+    },
+    {
+      name: 'Heat Map',
+      icon: 'smile',
+      path: '/heat-map',
+      component: './HeatMap',
     },
     {
       component: './404',
