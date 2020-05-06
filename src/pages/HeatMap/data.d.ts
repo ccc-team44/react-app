@@ -4,7 +4,8 @@ export interface HeatMapItem {
   "averagePrice": number,
   "minPrice": number,
   "maxPrice": number,
-  "latlng": number[],
-  "priceIndicator": number
+  "lng": number,
+  "lat": number,
+  "count": number
 }
 

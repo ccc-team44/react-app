@@ -10,7 +10,7 @@ const Map = ReactMapboxGl({
 const mapStyle = {
   flex: 1,
   height: '60vh',
-  minHeight: 600
+  minHeight: 800
 };
 
 export interface Props {
@@ -20,7 +20,7 @@ export interface Props {
 
 const layerPaint = {
   'heatmap-weight': {
-    property: 'priceIndicator',
+    property: 'count',
     type: 'exponential',
     stops: [[0, 0], [5, 2]]
   },
@@ -51,7 +51,8 @@ const layerPaint = {
   ],
   // Adjust the heatmap radius by zoom level
   'heatmap-radius': {
-    stops: [[0, 1], [5, 50]]
+    // stops: [[0, 1], [5, 50]]
+    stops: [[0, 1], [5, 20]]
   }
 };
 const center = [144.9631, -37.8136] as [number, number];
@@ -69,7 +70,7 @@ export default ({data, mapStyles:styles} : {
     >
       <Layer type="heatmap" paint={layerPaint}>
         {data.map((el: any, index: number) => (
-          <Feature key={index} coordinates={el.latlng} properties={el} />
+          <Feature key={index} coordinates={[el.lng, el.lat]} properties={el} />
         ))}
       </Layer>
     </Map>

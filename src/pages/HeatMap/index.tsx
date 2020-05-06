@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Spin } from 'antd';
 import styles from './index.less';
 import HeatMapComponent from "@/pages/HeatMap/components/HeatMapComponent";
-import {getMockData} from "./mock";
+import axios from "axios";
 import {HeatMapItem} from "@/pages/HeatMap/data";
 
 const mapStyles = {
@@ -14,17 +14,16 @@ const mapStyles = {
     "outdoor": "mapbox://styles/mapbox/outdoors-v10"
 }
 
-
+const serverAddress = process.env.NODE_ENV === 'production' ? `http://${window.location.host}:8001` : 'http://localhost:8001';
 export default () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<HeatMapItem[]>([]);
   useEffect(() => {
-    const timer = setTimeout(()=> {
-      setData(getMockData())
+    axios.get(`${serverAddress}/tweets`).then(res=> {
+      console.log(res.data)
+      setData(res.data)
       setLoading(false)
-    },2000)
-
-    return () => clearTimeout(timer)
+    })
   }, []);
   return (
     <PageHeaderWrapper content="It's heating up！" className={styles.main}>
