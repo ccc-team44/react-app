@@ -24,20 +24,18 @@ interface OtherItem {
   value: number;
 }
 
-const LangCountPieChart = ({ data, others }: {
+const LangCountPieChart = ({ data, others,sum }: {
   data: Item[],
   others: OtherItem[],
+  sum: number
 }) => {
-  let sum = 0;
-  data.forEach(obj => {
-    sum += obj.value;
-  });
+  console.log(sum,111)
   const otherRatio = data[data.length - 1].value / sum; // Other 的占比
 
   const otherOffsetAngle = otherRatio * Math.PI; // other 占的角度的一半
 
   const chartWidth = 500;
-  const chartHeight = 500;
+  const chartHeight = 1000;
 
   G2.Shape.registerShape('interval', 'otherShape', {
     draw(cfg: { points: any; color: any; }, container: { addShape: (arg0: string, arg1: { attrs: { path: any[][]; stroke: any; lineWidth: number; } | { fill: any; path: any; }; }) => void; }) {
@@ -100,11 +98,11 @@ const LangCountPieChart = ({ data, others }: {
         <Geom
           type="intervalStack"
           position="value"
-          color="type"
+          color="key"
           shape={[
-            'type',
-              (type: string) => {
-              if (type === 'Other') {
+            'key',
+              (key: string) => {
+              if (key === 'Other') {
                 return 'otherShape';
               }
 
@@ -113,10 +111,19 @@ const LangCountPieChart = ({ data, others }: {
           ]}
         >
           <Label
-            content="type"
+            content="key"
             offset={-20}
             textStyle={{
               rotate: 0,
+            }}
+          />
+          <Label
+            content="key"
+            custom={true}
+            htmlTemplate={(text, item) => {
+              return `<div style="text-align:center;">${text}${(
+                item.point.value / sum * 100
+              ).toFixed(0)}%</div>`;
             }}
           />
         </Geom>
@@ -133,8 +140,8 @@ const LangCountPieChart = ({ data, others }: {
           y: 1,
         }}
       >
-        <Geom type="intervalStack" position="1*value" color={['otherType', '#FCD7DE-#F04864']}>
-          <Label content="otherType" offset={-20} />
+        <Geom type="intervalStack" position="1*value" color={['key', '#FCD7DE-#F04864']}>
+          <Label content="key" offset={-20} />
         </Geom>
       </View>
     </Chart>
