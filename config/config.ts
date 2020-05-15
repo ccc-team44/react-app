@@ -90,7 +90,7 @@ export default defineConfig({
       component: './Covid Map',
     },
     {
-      name: '空白页面',
+      name: 'lang',
       icon: 'smile',
       path: '/lang',
       component: './Lang',
@@ -110,3 +110,5 @@ export default defineConfig({
     basePath: '/',
   },
 });
+
+export const serverAddress = process.env.NODE_ENV === 'production' ? `http://${window.location.host}:8002` : 'http://localhost:8002';
