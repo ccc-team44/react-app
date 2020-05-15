@@ -122,7 +122,7 @@ const LangCountPieChart = ({ data, others,sum }: {
             custom={true}
             htmlTemplate={(lang, item) => {
               return `<div style="text-align:center;"><span>${langCode[lang]}:${(item.point.value / sum * 100
-              ).toFixed(0)}%</span></div>`;
+              ).toFixed(3)}%</span></div>`;
             }}
           />
         </Geom>
@@ -146,7 +146,7 @@ const LangCountPieChart = ({ data, others,sum }: {
             custom={true}
             htmlTemplate={(lang, item) => {
               return `<div style="text-align:center;"><span>${langCode[lang]}:${(item.point.value / sum * 100
-              ).toFixed(0)}%</span></div>`;
+              ).toFixed(3)}%</span></div>`;
             }}
           />
         </Geom>

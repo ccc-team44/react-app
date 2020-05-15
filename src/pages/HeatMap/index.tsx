@@ -14,7 +14,7 @@ const mapStyles = {
     "outdoor": "mapbox://styles/mapbox/outdoors-v10"
 }
 
-const serverAddress = process.env.NODE_ENV === 'production' ? `http://${window.location.host}:8001` : 'http://localhost:8001';
+const serverAddress = process.env.NODE_ENV === 'production' ? `http://${window.location.host}:8002` : 'http://localhost:8002';
 export default () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<HeatMapItem[]>([]);

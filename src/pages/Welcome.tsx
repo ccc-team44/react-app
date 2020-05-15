@@ -126,7 +126,7 @@ const SnippetChart = ({data}: any) => {
 }
 
 // eslint-disable-next-line no-undef
-const serverAddress = process.env.NODE_ENV === 'production' ? `http://${window.location.host}:8001` : 'http://localhost:8001';
+const serverAddress = process.env.NODE_ENV === 'production' ? `http://${window.location.host}:8002` : 'http://localhost:8002';
 
 export default (): React.ReactNode => {
   const [data, setData] = React.useState<any>(null);

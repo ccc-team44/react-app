@@ -214,4 +214,5 @@ export const langCode = {
   za: 'Zhuang, Chuang',
   zu: 'Zulu',
   und: 'Undefined',
+  rest: 'Rest...'
 };

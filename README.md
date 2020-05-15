@@ -18,7 +18,7 @@ yarn
 [Docker hub repo link](https://hub.docker.com/r/xxdd13/ccc-react-app)
 
 ##Api
-The react app will assume backend api server is running on same vm but at port 8001
+The react app will assume backend api server is running on same vm but at port 8002
 
 ## Provided Scripts
 
