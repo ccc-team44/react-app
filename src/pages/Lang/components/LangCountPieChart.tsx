@@ -14,6 +14,7 @@ import {
   Facet,
   Util,
 } from 'bizcharts';
+import { langCode } from '@/utils/utils';
 
 interface Item {
   key: string;
@@ -119,8 +120,8 @@ const LangCountPieChart = ({ data, others,sum }: {
           <Label
             content="key"
             custom={true}
-            htmlTemplate={(text, item) => {
-              return `<div style="text-align:center;"><span>${text}:${(item.point.value / sum * 100
+            htmlTemplate={(lang, item) => {
+              return `<div style="text-align:center;"><span>${langCode[lang]}:${(item.point.value / sum * 100
               ).toFixed(0)}%</span></div>`;
             }}
           />
@@ -140,11 +141,11 @@ const LangCountPieChart = ({ data, others,sum }: {
       >
         <Geom type="intervalStack" position="1*value" color={['key', '#FCD7DE-#F04864']}>
           <Label
-            offset={}{-20}
+            offset={-20}
             content="key"
             custom={true}
-            htmlTemplate={(text, item) => {
-              return `<div style="text-align:center;"><span>${text}:${(item.point.value / sum * 100
+            htmlTemplate={(lang, item) => {
+              return `<div style="text-align:center;"><span>${langCode[lang]}:${(item.point.value / sum * 100
               ).toFixed(0)}%</span></div>`;
             }}
           />
