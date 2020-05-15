@@ -29,13 +29,12 @@ const LangCountPieChart = ({ data, others,sum }: {
   others: OtherItem[],
   sum: number
 }) => {
-  console.log(sum,111)
   const otherRatio = data[data.length - 1].value / sum; // Other 的占比
 
   const otherOffsetAngle = otherRatio * Math.PI; // other 占的角度的一半
 
   const chartWidth = 500;
-  const chartHeight = 1000;
+  const chartHeight = 600;
 
   G2.Shape.registerShape('interval', 'otherShape', {
     draw(cfg: { points: any; color: any; }, container: { addShape: (arg0: string, arg1: { attrs: { path: any[][]; stroke: any; lineWidth: number; } | { fill: any; path: any; }; }) => void; }) {
@@ -121,9 +120,8 @@ const LangCountPieChart = ({ data, others,sum }: {
             content="key"
             custom={true}
             htmlTemplate={(text, item) => {
-              return `<div style="text-align:center;">${text}${(
-                item.point.value / sum * 100
-              ).toFixed(0)}%</div>`;
+              return `<div style="text-align:center;"><span>${text}:${(item.point.value / sum * 100
+              ).toFixed(0)}%</span></div>`;
             }}
           />
         </Geom>
@@ -141,7 +139,15 @@ const LangCountPieChart = ({ data, others,sum }: {
         }}
       >
         <Geom type="intervalStack" position="1*value" color={['key', '#FCD7DE-#F04864']}>
-          <Label content="key" offset={-20} />
+          <Label
+            offset={}{-20}
+            content="key"
+            custom={true}
+            htmlTemplate={(text, item) => {
+              return `<div style="text-align:center;"><span>${text}:${(item.point.value / sum * 100
+              ).toFixed(0)}%</span></div>`;
+            }}
+          />
         </Geom>
       </View>
     </Chart>

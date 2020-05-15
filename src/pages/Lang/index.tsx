@@ -11,8 +11,8 @@ const sorter = (a, b) => (a.value > b.value ? -1 : a.value < b.value ? 1 : 0);
 export default () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<any[]>([]);
-  const [top10, setTop10] = useState<any[]>([]);
-  const [rest, setRest] = useState<any[]>([]);
+  const [top5, setTop5] = useState<any[]>([]);
+  const [others, setOthers] = useState<any[]>([]);
   const [sum, setSum] = useState<number>(0);
 
   useEffect(() => {
@@ -23,8 +23,14 @@ export default () => {
 
       const s = sorted.reduce((acc: number, x: { value: number }) => acc + x.value, 0);
       setSum(s);
-      setTop10(sorted.splice(0, 10));
-      setRest(sorted.splice(10));
+      setTop5(sorted.slice(0, 5));
+      const next10 = sorted.slice(5, 10)
+      const rest = sorted.slice(10)
+      const sumRest = rest.reduce((acc: number, x: { value: number }) => acc + x.value, 0);
+      setOthers([...next10, {
+        key: 'rest',
+        value: sumRest
+      }]);
 
       setLoading(false);
     });
@@ -34,7 +40,7 @@ export default () => {
       {loading ? (
         <Spin spinning={loading} size="large" />
       ) : (
-        <LangCountPieChart data={top10} others={rest} sum={sum} />
+        <LangCountPieChart data={top5} others={others} sum={sum} />
       )}
     </PageHeaderWrapper>
   );
