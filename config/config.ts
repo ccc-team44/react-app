@@ -90,6 +90,12 @@ export default defineConfig({
       component: './Covid Map',
     },
     {
+      name: 'lang',
+      icon: 'smile',
+      path: '/lang',
+      component: './Lang',
+    },
+    {
       component: './404',
     },
   ],
