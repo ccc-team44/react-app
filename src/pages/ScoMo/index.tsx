@@ -2,6 +2,8 @@ import React from 'react';
 import {PageHeaderWrapper} from '@ant-design/pro-layout';
 import DataSet from '@antv/data-set';
 import GroupedChart from "@/pages/ScoMo/components/GroupedChart";
+import StateClassCharts from "@/pages/ScoMo/components/StateClassChart";
+import ScatteredChart from "@/pages/ScoMo/components/ScatteredChart";
 
 
 const data = [
@@ -42,32 +44,48 @@ const months = [ "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December" ];
 
 function convert(raw) {
-  const newData = []
+  const groupedData = []
+  const stateClass = []
+  const scatteredData = []
+
   Object.keys(raw).forEach(k => {
     if(k.startsWith('_')) return
 
-    const stateData = {}
-    raw[k].forEach(mData => {
-      stateData[months[mData.month-1]]=( mData.negative_rate * 100 )
+    stateClass.push({
+      state: k,
+      'percentage of middle & upper class': raw[k].find(el => !!el['percentage of middle&upper class'])['percentage of middle&upper class']
     })
 
-    newData.push({
+    const stateData = {}
+    raw[k].forEach(mData => {
+      stateData[months[mData.month-1]]=( parseFloat(mData.negative_rate) * 100 )
+      if(mData.negative_rate && mData['percentage of middle&upper class'])
+        scatteredData.push({
+          state: k,
+          rich: parseFloat(mData['percentage of middle&upper class'].replace('%')),
+          negative_rate: parseFloat(mData.negative_rate * 100),
+        })
+    })
+
+    groupedData.push({
       ...stateData,
       name: k
     })
   })
-  return newData;
+  return [groupedData, stateClass, scatteredData];
 }
 
 const SCOMO: React.FC<{}> = () => {
 
   const data = require('./mockData').mockData
 
-  const processedData = convert(data)
-  console.log(processedData)
+  const [processedData, stateClass, scatteredData] = convert(data);
+  console.log(scatteredData)
   return (
     <PageHeaderWrapper title="#ScoMo" >
       <GroupedChart data={processedData}/>
+      <StateClassCharts data={stateClass}/>
+      <ScatteredChart data={scatteredData}/>
     </PageHeaderWrapper>
   );
 };

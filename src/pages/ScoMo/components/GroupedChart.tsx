@@ -3,7 +3,7 @@ import {Axis, Chart, Geom, Legend, Tooltip} from 'bizcharts';
 import DataSet from '@antv/data-set';
 
 
-const GroupedChart: React.FC<{}> = ({data} : {
+const GroupedChart = ({data} : {
   data: any
 }) => {
   const ds = new DataSet();
