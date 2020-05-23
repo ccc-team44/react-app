@@ -84,10 +84,10 @@ export default defineConfig({
       component: './IntensityMap',
     },
     {
-      name: 'Covid Map',
+      name: 'RetweetMap',
       icon: 'smile',
-      path: '/covidmap',
-      component: './Covid Map',
+      path: '/retweetmap',
+      component: './RetweetMap',
     },
     {
       name: 'lang',

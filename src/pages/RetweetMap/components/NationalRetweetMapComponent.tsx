@@ -1,4 +1,5 @@
 import {
+  LayerEvent,
   LineLayer,
   MapboxScene,
   Marker,
@@ -26,53 +27,34 @@ const converter = (raw) => {
     if(k.startsWith('_')) return
     newData[stateCode[k]] = raw[k]
   })
+  return newData;
 }
 
 
 function joinData(geodata: any) {
 
   const data = converter(require('./mockData').mockData)
-
-  const ncovDataObj: any = {
-    "1": {
-      confirmedCount: 1000*Math.random()
-    },
-    "2": {
-      confirmedCount: 1000 * Math.random()
-    },
-    "3": {
-      confirmedCount: 1000 * Math.random()
-    },
-    "4": {
-      confirmedCount: 1000 * Math.random()
-    },
-    "5": {
-      confirmedCount: 1000 * Math.random()
-    },
-    "6": {
-      confirmedCount: 1000 * Math.random()
-    },
-    "7": {
-      confirmedCount: 1000 * Math.random()
-    },
-  };
+  console.log(data,1)
 
   const geoObj: any = {};
   geodata.features.forEach((feature: any) => {
     const { STATE_CODE } = feature.properties;
     geoObj[STATE_CODE] = feature.properties;
-    const ncov = ncovDataObj[STATE_CODE] || {};
+    const stateData = data[STATE_CODE] || {};
     feature.properties = {
       ...feature.properties,
-      ...ncov,
+      ...stateData,
     };
   });
-  console.log(geodata)
   return geodata;
 }
 
 const NationalRetweetMapComponent = React.memo(function Map() {
   const [data, setData] = React.useState();
+  const [popupInfo, setPopupInfo] = React.useState<{
+    lnglat: number[];
+    feature: any;
+  }>();
   React.useEffect(() => {
     const fetchData = async () => {
       const geoData = await  fetch(
@@ -82,6 +64,14 @@ const NationalRetweetMapComponent = React.memo(function Map() {
     };
     fetchData();
   }, []);
+
+  function showPopup(args: any): void {
+    setPopupInfo({
+      lnglat: args.lngLat,
+      feature: args.feature.properties,
+    });
+  }
+
   return (
     <>
       <MapboxScene
@@ -96,6 +86,22 @@ const NationalRetweetMapComponent = React.memo(function Map() {
           height: '80vh',
         }}
       >
+        {popupInfo && (
+          <Popup lnglat={popupInfo.lnglat}>
+            <h3>{popupInfo.feature.STATE_NAME}</h3>
+            <ul
+              style={{
+                margin: 0,
+              }}
+            >
+              <li>retweet number: <strong>{popupInfo.feature['retweet number']}</strong></li>
+              <li>tweets number:<strong>{popupInfo.feature['tweets number']}</strong></li>
+              <li>freq of retweet:<strong>{popupInfo.feature['freq of retweet']}</strong></li>
+              <li>percentage of middle & upper class:<strong>{popupInfo.feature['percentage of middle&upper class']}</strong></li>
+              <li>median age of earner: <strong>{popupInfo.feature['median age of earner']}</strong></li>
+            </ul>
+          </Popup>
+        )}
         {data && [
           <PolygonLayer
             key={'1'}
@@ -107,7 +113,7 @@ const NationalRetweetMapComponent = React.memo(function Map() {
             }}
             scale={{
               values: {
-                confirmedCount: {
+                'freq of retweet': {
                   type: 'quantile',
                 },
               },
@@ -118,8 +124,17 @@ const NationalRetweetMapComponent = React.memo(function Map() {
               },
             }}
             color={{
-              field: 'confirmedCount', // 填充颜色
-              values: ['#f7fcf0','#e0f3db','#ccebc5','#a8ddb5','#7bccc4','#4eb3d3','#2b8cbe','#08589e'].reverse()
+              field: 'freq of retweet',
+              values: [
+                '#ffffff',
+                '#7bddfd',
+                '#43c3f4',
+                '#099be2',
+                '#0b6a98',
+                '#095479',
+                '#073e5a',
+                '#041d2c'
+              ]
             }}
             shape={{
               values: 'fill',
@@ -127,7 +142,9 @@ const NationalRetweetMapComponent = React.memo(function Map() {
             style={{
               opacity: 1,
             }}
-          />,
+          >
+            <LayerEvent type="mousemove" handler={showPopup} />
+          </PolygonLayer>,
           <LineLayer
             key={'2'}
             source={{
@@ -137,7 +154,7 @@ const NationalRetweetMapComponent = React.memo(function Map() {
               values: 0.6,
             }}
             color={{
-              values: '#aaa', // 描边颜色
+              values: '#aaa',
             }}
             shape={{
               values: 'line',
