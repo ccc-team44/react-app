@@ -1,20 +1,6 @@
 import React from 'react';
-import {
-  G2,
-  Chart,
-  Geom,
-  Axis,
-  Tooltip,
-  Coord,
-  Label,
-  Legend,
-  View,
-  Guide,
-  Shape,
-  Facet,
-  Util,
-} from 'bizcharts';
-import { langCode } from '@/utils/utils';
+import {Chart, Coord, G2, Geom, Label, Legend, View,} from 'bizcharts';
+import {langCode} from '@/utils/utils';
 
 interface Item {
   key: string;
@@ -30,9 +16,9 @@ const LangCountPieChart = ({ data, others,sum }: {
   others: OtherItem[],
   sum: number
 }) => {
-  const otherRatio = data[data.length - 1].value / sum; // Other 的占比
+  const otherRatio = data[data.length - 1].value / sum;
 
-  const otherOffsetAngle = otherRatio * Math.PI; // other 占的角度的一半
+  const otherOffsetAngle = otherRatio * Math.PI;
 
   const chartWidth = 500;
   const chartHeight = 600;
@@ -77,7 +63,7 @@ const LangCountPieChart = ({ data, others,sum }: {
   };
 
   return (
-    <Chart height={chartHeight} weight={chartWidth} forceFit padding={[20, 0, 'auto', 0]}>
+    <Chart height={chartHeight} weight={chartWidth} forceFit padding={[60, 0, 60, 0]}>
       <Legend />
       <View
         data={data}

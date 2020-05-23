@@ -6,9 +6,33 @@ import {
   Popup,
 } from '@antv/l7-react';
 import * as React from 'react';
-import ReactDOM from 'react-dom';
+
+
+const stateCode = {
+  "New South Wales": "0",
+  "Victoria": "1",
+  "Queensland": "2",
+  "South Australia": "3",
+  "Western Australia": "4",
+  "Tasmania": "5",
+  "Northern Territory": "6",
+  "Australian Capital Territory": "7",
+}
+
+const converter = (raw) => {
+
+  const newData = {}
+  Object.keys(raw).forEach(k => {
+    if(k.startsWith('_')) return
+    newData[stateCode[k]] = raw[k]
+  })
+}
+
 
 function joinData(geodata: any) {
+
+  const data = converter(require('./mockData').mockData)
+
   const ncovDataObj: any = {
     "1": {
       confirmedCount: 1000*Math.random()
@@ -47,7 +71,7 @@ function joinData(geodata: any) {
   return geodata;
 }
 
-const CovidMapComponent = React.memo(function Map() {
+const NationalRetweetMapComponent = React.memo(function Map() {
   const [data, setData] = React.useState();
   React.useEffect(() => {
     const fetchData = async () => {
@@ -127,4 +151,4 @@ const CovidMapComponent = React.memo(function Map() {
     </>
   );
 });
-export default CovidMapComponent
+export default NationalRetweetMapComponent
