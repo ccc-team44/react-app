@@ -1,7 +1,7 @@
-// https://umijs.org/config/
-import { defineConfig } from 'umi';
+import {defineConfig} from 'umi';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
+
 const { REACT_APP_ENV } = process.env;
 export default defineConfig({
   hash: true,
@@ -76,6 +76,12 @@ export default defineConfig({
       icon: 'fire',
       path: '/heat-map',
       component: './HeatMap',
+    },
+    {
+      name: '#ScoMo',
+      icon: 'fire',
+      path: '/scomo',
+      component: './ScoMo',
     },
     {
       name: 'Intensity Map',

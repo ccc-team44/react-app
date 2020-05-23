@@ -52,5 +52,6 @@ export default {
   'menu.Heat Map': 'Heat Map',
   'menu.Intensity Map': 'Intensity Map',
   'menu.RetweetMap': 'RetweetMap',
+  'menu.#ScoMo': '#ScoMo',
   'menu.lang': 'Language',
 };
