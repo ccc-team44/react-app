@@ -5,6 +5,7 @@ import NationalRetweetMapComponent from "@/pages/RetweetMap/components/NationalR
 import axios from "axios";
 import {serverAddress} from "@/utils/utils";
 import styles from './index.less';
+import TwoLineChart from "@/pages/RetweetMap/components/TwoLineChart";
 
 const {TabPane} = Tabs
 export default () => {
@@ -21,12 +22,12 @@ export default () => {
         {
           !data? <Spin/> :
           <Tabs defaultActiveKey="1">
-            <TabPane tab="Frequency of Retweet" key="1">
+            <TabPane tab="Frequency of Retweet Map" key="1">
               <NationalRetweetMapComponent data={data}/>
             </TabPane>
-            {/* <TabPane tab="Victoria" key="2"> */}
-            {/*  <StateMapComponent/> */}
-            {/* </TabPane> */}
+             <TabPane tab="Retweet Rate vs Middle & Upper Class Percentage" key="2">
+              <TwoLineChart data={data}/>
+             </TabPane>
           </Tabs>
         }
       </div>
