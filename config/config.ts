@@ -1,7 +1,7 @@
-// https://umijs.org/config/
-import { defineConfig } from 'umi';
+import {defineConfig} from 'umi';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
+
 const { REACT_APP_ENV } = process.env;
 export default defineConfig({
   hash: true,
@@ -78,20 +78,26 @@ export default defineConfig({
       component: './HeatMap',
     },
     {
-      name: 'Intensity Map',
-      icon: 'smile',
-      path: '/intensity-map',
-      component: './IntensityMap',
+      name: '#ScoMo',
+      icon: 'fire',
+      path: '/scomo',
+      component: './ScoMo',
     },
+    // {
+    //   name: 'Intensity Map',
+    //   icon: 'smile',
+    //   path: '/intensity-map',
+    //   component: './IntensityMap',
+    // },
     {
-      name: 'Covid Map',
-      icon: 'smile',
-      path: '/covidmap',
-      component: './Covid Map',
+      name: 'RetweetMap',
+      icon: 'twitter',
+      path: '/retweetmap',
+      component: './RetweetMap',
     },
     {
       name: 'lang',
-      icon: 'smile',
+      icon: 'translation',
       path: '/lang',
       component: './Lang',
     },

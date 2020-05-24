@@ -5,6 +5,7 @@ import styles from './index.less';
 import HeatMapComponent from "@/pages/HeatMap/components/HeatMapComponent";
 import axios from "axios";
 import {HeatMapItem} from "@/pages/HeatMap/data";
+import { serverAddress } from '@/utils/utils';
 
 const mapStyles = {
   "londonCycle": "mapbox://styles/mapbox/light-v9",
@@ -14,13 +15,11 @@ const mapStyles = {
     "outdoor": "mapbox://styles/mapbox/outdoors-v10"
 }
 
-const serverAddress = process.env.NODE_ENV === 'production' ? `http://${window.location.host}:8002` : 'http://localhost:8002';
 export default () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<HeatMapItem[]>([]);
   useEffect(() => {
-    axios.get(`${serverAddress}/tweets`).then(res=> {
-      console.log(res.data)
+    axios.get(`${serverAddress}/api/scomo-location`).then(res=> {
       setData(res.data)
       setLoading(false)
     })

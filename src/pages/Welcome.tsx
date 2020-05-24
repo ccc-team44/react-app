@@ -141,7 +141,7 @@ export default (): React.ReactNode => {
       <PageHeaderWrapper>
         <Card>
           <Alert
-            message="Make sure django server is running"
+            message="Team 44"
             type="success"
             showIcon
             banner
@@ -150,15 +150,7 @@ export default (): React.ReactNode => {
               marginBottom: 24,
             }}
           />
-          JSON data will be requested from
-          <CodePreview>{serverAddress}/tweets </CodePreview>
-
         </Card>
-
-        <Card>
-          {data && <SnippetChart data={data}/>}
-        </Card>
-
       </PageHeaderWrapper>
     </ErrorBoundary>
   );
