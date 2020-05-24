@@ -71,12 +71,12 @@ export default defineConfig({
       path: '/',
       redirect: '/welcome',
     },
-    {
-      name: 'Heat Map',
-      icon: 'fire',
-      path: '/heat-map',
-      component: './HeatMap',
-    },
+    // {
+    //   name: 'Heat Map',
+    //   icon: 'fire',
+    //   path: '/heat-map',
+    //   component: './HeatMap',
+    // },
     {
       name: '#ScoMo',
       icon: 'fire',

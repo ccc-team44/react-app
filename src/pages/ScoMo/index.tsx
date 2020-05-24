@@ -8,6 +8,7 @@ import {Card, Tabs} from 'antd';
 import TagCloud from './components/TagCloud';
 import axios from 'axios'
 import {serverAddress} from "@/utils/utils";
+import HeatMap from "@/pages/ScoMo/components/HeatMap";
 const TabPane = Tabs.TabPane
 const months = [ "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December" ];
@@ -145,6 +146,9 @@ const SCOMO: React.FC<{}> = () => {
             </Card>
           </>
       }
+      <Card title="Location of #ScoMo tweets" style={{marginBottom: 32}}>
+        <HeatMap/>
+      </Card>
     </PageHeaderWrapper>
   );
 };
