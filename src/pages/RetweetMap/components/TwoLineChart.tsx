@@ -17,7 +17,6 @@ const cols = {
 export default ({data : rawData}) => {
 
   const data = Object.keys(rawData)?.filter(el => !el.startsWith('_')).map(state => {
-    console.log(rawData[state])
     const d = rawData[state];
     // eslint-disable-next-line consistent-return
     return ({
@@ -30,7 +29,7 @@ export default ({data : rawData}) => {
 
   return (
     <div>
-      <Chart height={window.innerHeight} data={data} scale={cols} forceFit>
+      <Chart height={window.innerHeight * 0.8} data={data} scale={cols} forceFit>
         <Tooltip
           showTitle={false}
           crosshairs={{

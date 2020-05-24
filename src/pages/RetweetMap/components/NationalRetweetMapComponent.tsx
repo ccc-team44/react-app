@@ -10,14 +10,14 @@ import * as React from 'react';
 
 
 const stateCode = {
-  "New South Wales": "0",
-  "Victoria": "1",
-  "Queensland": "2",
-  "South Australia": "3",
-  "Western Australia": "4",
-  "Tasmania": "5",
-  "Northern Territory": "6",
-  "Australian Capital Territory": "7",
+  "New South Wales": "1",
+  "Victoria": "2",
+  "Queensland": "3",
+  "South Australia": "4",
+  "Western Australia": "5",
+  "Tasmania": "6",
+  "Northern Territory": "7",
+  "Australian Capital Territory": "8",
 }
 
 const converter = (raw) => {
