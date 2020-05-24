@@ -1,29 +1,34 @@
-import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import React, { useState, useEffect } from 'react';
-import { Spin, Tabs } from 'antd';
-import styles from './index.less';
+import {PageHeaderWrapper} from '@ant-design/pro-layout';
+import React, {useEffect, useState} from 'react';
+import {Tabs, Spin} from 'antd';
 import NationalRetweetMapComponent from "@/pages/RetweetMap/components/NationalRetweetMapComponent";
-import StateMapComponent from "@/pages/RetweetMap/components/StateMapComponent";
-const TabPane = Tabs.TabPane
+import axios from "axios";
+import {serverAddress} from "@/utils/utils";
+import styles from './index.less';
+
+const {TabPane} = Tabs
 export default () => {
-  const [loading, setLoading] = useState<boolean>(true);
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-  }, []);
+  const [data, setData] = useState<any>()
+  useEffect(()=>{
+    axios.get(`${serverAddress}/api/retweet`).then((res) => {
+      setData(res.data)
+    }).catch(console.log)
+
+  },[])
   return (
     <PageHeaderWrapper content="Australian Data" className={styles.main}>
       <div style={{ paddingTop: 0, textAlign: 'center' }}>
-        <Tabs defaultActiveKey="1">
-          <TabPane tab="States" key="1">
-            <NationalRetweetMapComponent/>
-          </TabPane>
-          <TabPane tab="Victoria" key="2">
-            <StateMapComponent/>
-          </TabPane>
-        </Tabs>
-
+        {
+          !data? <Spin/> :
+          <Tabs defaultActiveKey="1">
+            <TabPane tab="Frequency of Retweet" key="1">
+              <NationalRetweetMapComponent data={data}/>
+            </TabPane>
+            {/* <TabPane tab="Victoria" key="2"> */}
+            {/*  <StateMapComponent/> */}
+            {/* </TabPane> */}
+          </Tabs>
+        }
       </div>
     </PageHeaderWrapper>
   );

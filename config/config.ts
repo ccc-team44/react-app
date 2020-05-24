@@ -71,24 +71,24 @@ export default defineConfig({
       path: '/',
       redirect: '/welcome',
     },
-    {
-      name: 'Heat Map',
-      icon: 'fire',
-      path: '/heat-map',
-      component: './HeatMap',
-    },
+    // {
+    //   name: 'Heat Map',
+    //   icon: 'fire',
+    //   path: '/heat-map',
+    //   component: './HeatMap',
+    // },
     {
       name: '#ScoMo',
       icon: 'fire',
       path: '/scomo',
       component: './ScoMo',
     },
-    {
-      name: 'Intensity Map',
-      icon: 'smile',
-      path: '/intensity-map',
-      component: './IntensityMap',
-    },
+    // {
+    //   name: 'Intensity Map',
+    //   icon: 'smile',
+    //   path: '/intensity-map',
+    //   component: './IntensityMap',
+    // },
     {
       name: 'RetweetMap',
       icon: 'smile',

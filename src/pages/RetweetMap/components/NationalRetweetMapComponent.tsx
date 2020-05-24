@@ -31,11 +31,7 @@ const converter = (raw) => {
 }
 
 
-function joinData(geodata: any) {
-
-  const data = converter(require('./mockData').mockData)
-  console.log(data,1)
-
+function joinData(geodata: { type?: string; features: any; }, data: { [x: string]: {}; }) {
   const geoObj: any = {};
   geodata.features.forEach((feature: any) => {
     const { STATE_CODE } = feature.properties;
@@ -49,7 +45,8 @@ function joinData(geodata: any) {
   return geodata;
 }
 
-const NationalRetweetMapComponent = React.memo(function Map() {
+// @ts-ignore
+const NationalRetweetMapComponent = React.memo(({data: rawData}) => {
   const [data, setData] = React.useState();
   const [popupInfo, setPopupInfo] = React.useState<{
     lnglat: number[];
@@ -57,10 +54,8 @@ const NationalRetweetMapComponent = React.memo(function Map() {
   }>();
   React.useEffect(() => {
     const fetchData = async () => {
-      const geoData = await  fetch(
-        'https://raw.githubusercontent.com/tonywr71/GeoJson-Data/master/australian-states.json',
-      ).then((d) => d.json());
-      setData(joinData(geoData));
+      const {auStateJson} = await import('../australian-states')
+      setData(joinData(auStateJson, converter(rawData)));
     };
     fetchData();
   }, []);
