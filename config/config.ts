@@ -71,12 +71,12 @@ export default defineConfig({
       path: '/',
       redirect: '/welcome',
     },
-    // {
-    //   name: 'Heat Map',
-    //   icon: 'fire',
-    //   path: '/heat-map',
-    //   component: './HeatMap',
-    // },
+    {
+      name: 'Heat Map',
+      icon: 'fire',
+      path: '/heat-map',
+      component: './HeatMap',
+    },
     {
       name: '#ScoMo',
       icon: 'fire',
@@ -91,13 +91,13 @@ export default defineConfig({
     // },
     {
       name: 'RetweetMap',
-      icon: 'smile',
+      icon: 'twitter',
       path: '/retweetmap',
       component: './RetweetMap',
     },
     {
       name: 'lang',
-      icon: 'smile',
+      icon: 'translation',
       path: '/lang',
       component: './Lang',
     },
