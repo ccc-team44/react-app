@@ -4,6 +4,9 @@ import DataSet from '@antv/data-set';
 import GroupedChart from "@/pages/ScoMo/components/GroupedChart";
 import StateClassCharts from "@/pages/ScoMo/components/StateClassChart";
 import ScatteredChart from "@/pages/ScoMo/components/ScatteredChart";
+import Title from 'antd/lib/typography/Title';
+import Text from "antd/es/typography/Text";
+import { Card, Space } from 'antd';
 
 
 const data = [
@@ -83,9 +86,21 @@ const SCOMO: React.FC<{}> = () => {
   console.log(scatteredData)
   return (
     <PageHeaderWrapper title="#ScoMo" >
-      <GroupedChart data={processedData}/>
-      <StateClassCharts data={stateClass}/>
-      <ScatteredChart data={scatteredData}/>
+
+      <Card title="Monthly tweets negative rate grouped by state" style={{marginBottom: 32}}>
+        <Text>Higher negative rate indicates greater disapproval towards Scott Morrison </Text>
+        <Text>This chart is integrative, you may click state names underneath to toggle visibility of its data.</Text>
+        <GroupedChart data={processedData}/>
+      </Card>
+
+      <Card title="Percentage of middle & upper class for each state" style={{marginBottom: 32}}>
+        <StateClassCharts data={stateClass}/>
+      </Card>
+
+      <Card title="Scatter plot of middle & upper class rate (x-axis) vs tweet negative rate (y-axis) for 09/2019 ~ 05/2020" style={{marginBottom: 32}}>
+        <ScatteredChart data={scatteredData}/>
+      </Card>
+
     </PageHeaderWrapper>
   );
 };

@@ -1,11 +1,18 @@
 import React from "react";
 import {Axis, Chart, Geom, Legend, Tooltip} from "bizcharts";
 
-
+const scale = {
+  negative_rate: {
+    alias:'Negative rate %'
+  },
+  rich: {
+    alias:'Middle & upper class %'
+  }
+}
 const ScatteredChart = ({data}) =>
   (
       <div>
-        <Chart height={window.innerHeight} data={data} forceFit>
+        <Chart height={400} data={data} forceFit scale={scale}>
           <Tooltip
             showTitle={false}
             crosshairs={{
@@ -13,8 +20,8 @@ const ScatteredChart = ({data}) =>
             }}
             itemTpl="<li data-index={index} style=&quot;margin-bottom:4px;&quot;><span style=&quot;background-color:{color};&quot; class=&quot;g2-tooltip-marker&quot;></span>{name}<br/>{value}</li>"
           />
-          <Axis name="rich" />
-          <Axis name="negative_rate" />
+          <Axis name="rich" title/>
+          <Axis name="negative_rate" title/>
           <Legend />
           <Geom
             type="point"
