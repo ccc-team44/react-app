@@ -82,7 +82,7 @@ function convert(raw) {
 }
 
 const SCOMO: React.FC<{}> = () => {
-  const [data, setData] = useState<any>()
+  const [data, setData] = useState<any>([])
   useEffect(()=>{
     axios.get(`${serverAddress}/api/scomo`).then((res) => {
       setData(convert(res.data))
