@@ -18,7 +18,7 @@ const GroupedChart = ({data} : {
     <div>
       <Chart height={800} data={dv} forceFit>
         <Axis name="Month" />
-        <Axis name="Negative Rate" />
+        <Axis name="Negative Rate" title/>
         <Legend />
         <Tooltip
           crosshairs={{
