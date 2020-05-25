@@ -146,9 +146,9 @@ const SCOMO: React.FC<{}> = () => {
             </Card>
           </>
       }
-      <Card title="Location of #ScoMo tweets" style={{marginBottom: 32}}>
-        <HeatMap/>
-      </Card>
+      {/*<Card title="Location of #ScoMo tweets" style={{marginBottom: 32}}>*/}
+      {/*  <HeatMap/>*/}
+      {/*</Card>*/}
     </PageHeaderWrapper>
   );
 };
