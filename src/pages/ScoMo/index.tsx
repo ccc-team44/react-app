@@ -25,7 +25,7 @@ function convert(raw) {
 
     stateClass.push({
       state: k,
-      'percentage of middle & upper class': raw[k].find(el => !!el['percentage of middle&upper class'])['percentage of middle&upper class']
+      'percentage of middle & upper class': parseFloat(raw[k].find(el => !!el['percentage of middle&upper class'])['percentage of middle&upper class'].replace('%'))
     })
 
     const stateData = {}
