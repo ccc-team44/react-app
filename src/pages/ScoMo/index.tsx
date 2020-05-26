@@ -122,7 +122,7 @@ const SCOMO: React.FC<{}> = () => {
                 <Card title="Monthly tweets positive rate grouped by state" style={{marginBottom: 32}}>
                   <Text>Higher positive rate indicates greater approval towards Scott Morrison </Text>
                   <Text>This chart is integrative, you may click state names underneath to toggle visibility of its data.</Text>
-                  <GroupedChart data={groupedDataPositive}/>
+                  <GroupedChart data={groupedDataPositive} isPositive/>
                 </Card>
 
                 <Card title="Scatter plot of middle & upper class rate (x-axis) vs tweet negative rate (y-axis) for 09/2019 ~ 05/2020" style={{marginBottom: 32}}>

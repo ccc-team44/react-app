@@ -14,9 +14,14 @@ const GroupedChart = ({data} : {
     key: "Month",
     value: "Negative Rate"
   });
+  const  scale = {
+    "Negative Rate": {
+      alias: 'Positive Rate'
+    }
+  }
   return (
     <div>
-      <Chart height={800} data={dv} forceFit>
+      <Chart height={800} data={dv} forceFit scale={scale}>
         <Axis name="Month" />
         <Axis name="Negative Rate" title/>
         <Legend />
