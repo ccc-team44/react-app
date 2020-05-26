@@ -3,7 +3,9 @@ import {PageHeaderWrapper} from '@ant-design/pro-layout';
 import {Card, Typography, Row, Col, Carousel} from 'antd';
 import axios from 'axios'
 import styles from './Welcome.less';
+import './Welcome.css';
 import ErrorBoundary from "@/components/ErrorBoundary";
+import BigTitle from "@/pages/BigTitle";
 
 const { Paragraph } = Typography;
 const CodePreview: React.FC<{}> = ({ children }) => (
@@ -28,7 +30,8 @@ export default (): React.ReactNode => {
   },[])
   return (
     <ErrorBoundary>
-      <PageHeaderWrapper title={<h1>COMP90024: Cluster and Cloud Computing</h1>} content={<h2>Tweets Analysis on the Cloud</h2>}>
+      <PageHeaderWrapper>
+        <BigTitle />
         <Carousel autoplay style={{marginBottom: 16}}>
           <div>
             <Card title={'Introduction'}>
