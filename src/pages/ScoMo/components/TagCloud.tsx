@@ -36,7 +36,7 @@ const TagCloud = ({data} : {
         textBaseline: "Alphabetic"
       }
     );
-  } // 给point注册一个词云的shape
+  }
 
   Shape.registerShape("point", "cloud", {
     drawShape(cfg, container) {
@@ -75,7 +75,7 @@ const TagCloud = ({data} : {
     fontSize(d) {
       if (d.value) {
         const divisor = (max - min) !== 0 ? (max - min) : 1;
-        return ((d.value - min) / divisor) * (80 - 24) + 24;
+        return ((d.value - min) / divisor) * (100 - 18) + 18;
       }
 
       return 0;

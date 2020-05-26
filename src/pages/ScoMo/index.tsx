@@ -15,6 +15,7 @@ const months = [ "January", "February", "March", "April", "May", "June",
 
 function convert(raw) {
   const groupedData = []
+  const groupedDataPositive = []
   const stateClass = []
   const scatteredData = []
   const all_tags = {}
@@ -29,35 +30,44 @@ function convert(raw) {
     })
 
     const stateData = {}
+    const stateDataPositive = {}
     raw[k].forEach(mData => {
 
-      mData?.common_tag?.forEach?.(tag => {
+      mData?.common_tag?.forEach?.(tagRaw => {
+        const [tag, num] = tagRaw
         if(typeof all_tags[tag] !== 'number')
-          all_tags[tag] = 1;
+          all_tags[tag] = num;
         else{
-          all_tags[tag] += 1;
+          all_tags[tag] += num;
         }
       })
-      mData?.common_tag?.forEach?.((tag: string | number) => {
+      mData?.common_tag?.forEach?.((tagRaw: string) => {
+        const [tag, num] = tagRaw
         if(typeof monthly_tags?.[mData.month]?.[tag] !== 'number'){
           monthly_tags[mData.month]= {};
-          monthly_tags[mData.month][tag] = 1;
+          monthly_tags[mData.month][tag] = num || 0;
         }
         else{
-          monthly_tags[mData.month][tag] += 1;
+          monthly_tags[mData.month][tag] += num;
         }
       })
       stateData[months[mData.month-1]]=( parseFloat(mData.negative_rate) * 100 )
+      stateDataPositive[months[mData.month-1]]=( parseFloat(mData.positive_rate) * 100 )
       if(mData.negative_rate && mData['percentage of middle&upper class'])
         scatteredData.push({
           state: k,
           rich: parseFloat(mData['percentage of middle&upper class'].replace('%')),
           negative_rate: parseFloat(mData.negative_rate * 100),
+          positive_rate: parseFloat(mData.positive_rate * 100),
         })
     })
 
     groupedData.push({
       ...stateData,
+      name: k
+    })
+    groupedDataPositive.push({
+      ...stateDataPositive,
       name: k
     })
   })
@@ -79,7 +89,7 @@ function convert(raw) {
 
   })
 
-  return [groupedData, stateClass, scatteredData, allTagsArray, monthlyTagsComputed];
+  return [groupedData, stateClass, scatteredData, allTagsArray, monthlyTagsComputed, groupedDataPositive];
 }
 
 const SCOMO: React.FC<{}> = () => {
@@ -90,26 +100,40 @@ const SCOMO: React.FC<{}> = () => {
     }).catch(console.log)
 
   },[])
-  const [processedData, stateClass, scatteredData, allTagsArray, monthlyTagsComputed] = data;
+  const [processedData, stateClass, scatteredData, allTagsArray, monthlyTagsComputed, groupedDataPositive] = data;
   return (
     <PageHeaderWrapper title="#ScoMo" >
       {
         data.length < 1 ? <PageLoading /> :
           <>
-            <Card title="Monthly tweets negative rate grouped by state" style={{marginBottom: 32}}>
-              <Text>Higher negative rate indicates greater disapproval towards Scott Morrison </Text>
-              <Text>This chart is integrative, you may click state names underneath to toggle visibility of its data.</Text>
-              <GroupedChart data={processedData}/>
-            </Card>
+            <Tabs defaultActiveKey="1">
+              <TabPane tab="Negative Rates" key="1">
+                <Card title="Monthly tweets negative rate grouped by state" style={{marginBottom: 32}}>
+                  <Text>Higher negative rate indicates greater disapproval towards Scott Morrison </Text>
+                  <Text>This chart is integrative, you may click state names underneath to toggle visibility of its data.</Text>
+                  <GroupedChart data={processedData}/>
+                </Card>
 
-            <Card title="Percentage of middle & upper class for each state" style={{marginBottom: 32}}>
+                <Card title="Scatter plot of middle & upper class rate (x-axis) vs tweet negative rate (y-axis) for 09/2019 ~ 05/2020" style={{marginBottom: 32}}>
+                  <ScatteredChart data={scatteredData}/>
+                </Card>
+              </TabPane>
+              <TabPane tab="Positive Rates" key="2">
+                <Card title="Monthly tweets positive rate grouped by state" style={{marginBottom: 32}}>
+                  <Text>Higher positive rate indicates greater approval towards Scott Morrison </Text>
+                  <Text>This chart is integrative, you may click state names underneath to toggle visibility of its data.</Text>
+                  <GroupedChart data={groupedDataPositive}/>
+                </Card>
+
+                <Card title="Scatter plot of middle & upper class rate (x-axis) vs tweet negative rate (y-axis) for 09/2019 ~ 05/2020" style={{marginBottom: 32}}>
+                  <ScatteredChart data={scatteredData} isPositive/>
+                </Card>
+              </TabPane>
+            </Tabs>
+
+            <Card title="Percentage of middle & upper class for each state (Aurin)" style={{marginBottom: 32}}>
               <StateClassCharts data={stateClass}/>
             </Card>
-
-            <Card title="Scatter plot of middle & upper class rate (x-axis) vs tweet negative rate (y-axis) for 09/2019 ~ 05/2020" style={{marginBottom: 32}}>
-              <ScatteredChart data={scatteredData}/>
-            </Card>
-
             <Card title="Common tags associated with Scott Morrison for 09/2019 ~ 05/2020" style={{marginBottom: 32}}>
               <Tabs defaultActiveKey="0">
                 <TabPane tab="All" key="0">
