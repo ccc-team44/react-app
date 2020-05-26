@@ -6,6 +6,7 @@ import DataSet from '@antv/data-set';
 const GroupedChart = ({data} : {
   data: any
 }) => {
+  console.log(data)
   const ds = new DataSet();
   const dv = ds.createView().source(data);
   dv.transform({
@@ -16,7 +17,7 @@ const GroupedChart = ({data} : {
   });
   const  scale = {
     "Negative Rate": {
-      alias: 'Positive Rate'
+      alias: 'Rate'
     }
   }
   return (
